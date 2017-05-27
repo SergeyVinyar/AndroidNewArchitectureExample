@@ -32,10 +32,15 @@ public class AppModule {
     @Singleton
     WeatherDAO provideWeatherDAO() {
         AppDatabase database = Room.databaseBuilder(context, AppDatabase.class, "data")
-                .addMigrations(MIGRATION_1_2)
+                //.addMigrations(MIGRATION_1_2)
                 .build();
 
-        // TODO
+        // При первоначальном создании базы migrations не выполняются вне зависимости
+        // от того, что:
+        // 1) Они заданы в билдере
+        // 2) В аннотации AppDatabase указана версия > 1
+        // Полагаю, это ошибка.
+        // Поэтому вставим записи руками.
         Executors.newSingleThreadExecutor().execute(() -> {
             init(database.weatherDao());
         });
@@ -59,7 +64,7 @@ public class AppModule {
             try {
                 database.execSQL("INSERT INTO 'Weather' (CityName, Temperature, Description) VALUES ('Moscow', NULL, NULL)");
                 database.execSQL("INSERT INTO 'Weather' (CityName, Temperature, Description) VALUES ('London', NULL, NULL)");
-                database.execSQL("INSERT INTO 'Weather' (CityName, Temperature, Description) VALUES ('Berlin', NULL, NULL)");
+                database.execSQL("INSERT INTO 'Weather' (CityName, Temperature, Description) VALUES (git 'Berlin', NULL, NULL)");
                 database.setTransactionSuccessful();
             } finally {
                 database.endTransaction();

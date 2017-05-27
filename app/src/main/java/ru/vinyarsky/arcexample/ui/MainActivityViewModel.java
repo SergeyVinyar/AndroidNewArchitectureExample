@@ -19,10 +19,9 @@ public class MainActivityViewModel extends ViewModel {
     public WeatherRepository weatherRepository;
 
     private final MutableLiveData<String> cityNameLiveData = new MutableLiveData<>();
+    private MutableLiveData<Object> showCityEvent = new MutableLiveData<>();
 
     private final LiveData<WeatherInfo> weatherInfoLiveData;
-
-    private Runnable doShowCity;
 
     @Inject
     public MainActivityViewModel() {
@@ -38,16 +37,16 @@ public class MainActivityViewModel extends ViewModel {
         return weatherInfoLiveData;
     }
 
+    public LiveData<Object> showCity() {
+        return showCityEvent;
+    }
+
     public void selectCity(String cityName) {
         cityNameLiveData.setValue(cityName);
-        doShowCity.run();
+        showCityEvent.setValue(null);
     }
 
     public void refreshData() {
         cityNameLiveData.setValue(cityNameLiveData.getValue());
-    }
-
-    public void onShowCity(Runnable action) {
-        doShowCity = action;
     }
 }

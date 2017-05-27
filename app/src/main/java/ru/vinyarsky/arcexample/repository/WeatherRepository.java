@@ -13,6 +13,7 @@ import javax.inject.Singleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 import ru.vinyarsky.arcexample.db.Weather;
 import ru.vinyarsky.arcexample.db.WeatherDAO;
 import ru.vinyarsky.arcexample.network.WeatherResponseData;
