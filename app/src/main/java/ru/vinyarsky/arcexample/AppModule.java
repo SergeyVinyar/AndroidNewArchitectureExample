@@ -35,12 +35,10 @@ public class AppModule {
                 //.addMigrations(MIGRATION_1_2)
                 .build();
 
-        // При первоначальном создании базы migrations не выполняются вне зависимости
-        // от того, что:
-        // 1) Они заданы в билдере
-        // 2) В аннотации AppDatabase указана версия > 1
-        // Полагаю, это ошибка.
-        // Поэтому вставим записи руками.
+        // If no database found on the device, a new one created via analysing Entity interfaces.
+        // Migrations aren't executed even when required schema version > 1.
+        // It means migrations can't be used for populating db with data.
+        // Hope they change this behaviour.
         Executors.newSingleThreadExecutor().execute(() -> {
             init(database.weatherDao());
         });
