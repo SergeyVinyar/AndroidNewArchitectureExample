@@ -19,7 +19,7 @@ public class MainActivityViewModel extends ViewModel {
     public WeatherRepository weatherRepository;
 
     private final MutableLiveData<String> cityNameLiveData = new MutableLiveData<>();
-    private MutableLiveData<Object> showCityEvent = new MutableLiveData<>();
+    private MutableLiveData<Object> showCityEvent;
 
     private final LiveData<WeatherInfo> weatherInfoLiveData;
 
@@ -38,12 +38,14 @@ public class MainActivityViewModel extends ViewModel {
     }
 
     public LiveData<Object> showCity() {
+        showCityEvent = new MutableLiveData<>();
         return showCityEvent;
     }
 
     public void selectCity(String cityName) {
         cityNameLiveData.setValue(cityName);
-        showCityEvent.setValue(null);
+        if (showCityEvent != null)
+            showCityEvent.setValue(null);
     }
 
     public void refreshData() {
