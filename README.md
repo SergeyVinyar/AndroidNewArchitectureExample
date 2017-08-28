@@ -1,1 +1,1 @@
-This repository contains an Android application for the article on Habrahabr about new architecture by Google (in russian)
+This repository contains an Android application for [the article](https://habrahabr.ru/post/329990/) on Habrahabr about new architecture by Google (in russian)
